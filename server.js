@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const api = require('./routes/api.js');
 const handlebars = require('express-handlebars');
-//const { auth } = require('express-openid-connect');
+const { auth } = require('express-openid-connect');
 require('dotenv').config();
 
 const config = {
@@ -31,19 +31,19 @@ app.use((req, res, next) => {
     next();
 });
 
-//app.use(auth(config));
+app.use(auth(config));
 app.use(api);
 
 app.get('/', async (req, res) => {
-    // if(req.oidc.isAuthenticated()) {
-    //     res.render('user_info', {
-    //         data: {
-    //             nickname: req.oidc.user.nickname,
-    //             jwt: req.oidc.idToken
-    //         },
-    //         css: ['user_info.css']
-    //     });
-    // } else
+    if(req.oidc.isAuthenticated()) {
+        res.render('user_info', {
+            data: {
+                nickname: req.oidc.user.nickname,
+                jwt: req.oidc.idToken
+            },
+            css: ['user_info.css']
+        });
+    } else
         res.render('home', {
             css: ['home.css']
         });

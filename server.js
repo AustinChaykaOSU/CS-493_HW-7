@@ -9,10 +9,10 @@ const { auth } = require('express-openid-connect');
 const config = {
     authRequired: false,
     auth0Logout: true,
-    baseURL: 'https://hw7-chaykaa.uw.r.appspot.com',
+    baseURL: 'https://hw7-chaykaa-2.uw.r.appspot.com',
     clientID: process.env.CLIENT_ID,
     issuerBaseURL: `https://${process.env.DOMAIN}`,
-    secret: process.env.secret
+    secret: process.env.SECRET
 };
 
 app.engine('handlebars', handlebars.engine({
